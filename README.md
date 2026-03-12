@@ -1,5 +1,7 @@
 # Engine-Use-Cases
 
+The engine can be saved locally as html and opened using a browser.
+
 Maxwell Vacuum
 EM field as resonant E+B pearl pair. FROB_NEXT twists E→B (Faraday). Zero-seam loops = ∇·E=∇·B=0. Wave = repeating 20-trit rotation along lowest-nav ray.
 PEARL WIRING

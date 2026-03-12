@@ -2118,7 +2118,65 @@ const SYMBOL_ARCHETYPES=[
 // ═══════════════════════════════════════════════════════
 //  BLOCK TAXONOMY
 // ═══════════════════════════════════════════════════════
-const BLOCKS = {"identity": {"label": "Identity", "color": "#4af4b0", "scratch_equiv": "Variables \u2014 reporter blocks", "desc": "The identity element. Neutral composition. No transformation.", "pearls": [76], "note": "Pearl[76] is the only fixed point under group conjugation. Composing with it changes nothing."}, "anchor": {"label": "Anchor", "color": "#ff6b35", "scratch_equiv": "Events \u2014 \"when green flag clicked\"", "desc": "The structural origin. All seam costs measured from here.", "pearls": [0], "note": "Pearl[0] is the seam origin. NAV_POT[0] = 1.3653, lowest in the space."}, "read_tier": {"label": "Read Tier", "color": "#4af4b0", "scratch_equiv": "Sensing \u2014 reporter: \"x position\"", "desc": "Reports the tier of a pearl: anchor/hot/warm/cold/fano.", "pearls": [], "note": "Returns one of 5 values derived from element order."}, "read_spec": {"label": "Read Spec", "color": "#4af4b0", "scratch_equiv": "Sensing \u2014 reporter: \"costume name\"", "desc": "Reports spectral class: split/confined/gf8a/gf8b.", "pearls": [], "note": "charPoly(diffFromAnchor) \u2192 4-type classifier."}, "step_T01": {"label": "Step T(0,1)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"move 10 steps\"", "desc": "Apply transvection T(0,1): row[0] ^= row[1]. One hop.", "pearls": [], "tv": [0, 1], "note": "Elementary group generator. Hot-tier cost if row[0] of fragility map \u2260 0."}, "step_T10": {"label": "Step T(1,0)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"move -10 steps\" (reverse)", "desc": "Apply transvection T(1,0): row[1] ^= row[0]. One hop.", "pearls": [], "tv": [1, 0]}, "step_T02": {"label": "Step T(0,2)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"turn 15 degrees\"", "desc": "Apply transvection T(0,2): row[0] ^= row[2].", "pearls": [], "tv": [0, 2]}, "step_T20": {"label": "Step T(2,0)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"turn -15 degrees\"", "desc": "Apply T(2,0). This is also the CHIRAL INVOLUTION. Maps Pearl[i]\u2194chiral_partner(i).", "pearls": [100], "note": "Special: T(2,0) partitions 168 pearls into 2 chiral orbits of 84 each."}, "step_T12": {"label": "Step T(1,2)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"go to x: 0 y: 0\"", "desc": "Apply T(1,2): row[1] ^= row[2].", "pearls": [], "tv": [1, 2]}, "step_T21": {"label": "Step T(2,1)", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"glide to position\"", "desc": "Apply T(2,1): row[2] ^= row[1].", "pearls": [], "tv": [2, 1]}, "navigate": {"label": "Navigate", "color": "#0096ff", "scratch_equiv": "Motion \u2014 \"glide 1 secs to x: y:\"", "desc": "Move from src to dst via shortest transvection path (\u22646 steps).", "pearls": [], "note": "Uses TV_TABLE. Reports seam cost along path. Key operation."}, "frobenius": {"label": "Frobenius", "color": "#9b59f5", "scratch_equiv": "Looks \u2014 \"switch costume to\"", "desc": "GF(8) Frobenius map x\u2192x\u00b2. Period 3. No fixed points among the 168.", "pearls": [132], "note": "Frob\u00b3 = identity. Partitions 168 into 56 orbits of size 3."}, "frob_orbit": {"label": "Frobenius Orbit", "color": "#9b59f5", "scratch_equiv": "Looks \u2014 \"next costume\"", "desc": "Returns all 3 pearls in the Frobenius orbit of the input.", "pearls": [], "note": "For Pearl[i]: {i, FROB_NEXT[i], FROB_NEXT[FROB_NEXT[i]]}."}, "chiral_flip": {"label": "Chiral Flip", "color": "#9b59f5", "scratch_equiv": "Looks \u2014 \"set effect to\"", "desc": "Apply chiral involution T(2,0). Flips between orbit-0 and orbit-1.", "pearls": [100], "note": "Pearl[100] is the T(2,0) element. Self-inverse (order 2)."}, "matrix_form": {"label": "Matrix Form", "color": "#9b59f5", "scratch_equiv": "Looks \u2014 \"show\"", "desc": "Expand pearl triple to 3\u00d73 F\u2082 matrix representation.", "pearls": [], "note": "toMat([s0,s1,s2]) \u2014 the fundamental representation."}, "inverse": {"label": "Inverse", "color": "#9b59f5", "scratch_equiv": "Looks \u2014 \"set size to\"", "desc": "Compute group inverse. invIdx(i) in O(1).", "pearls": [], "note": "INV_TABLE[i]. Every element has exactly one inverse."}, "multiply": {"label": "Multiply", "color": "#2ecc71", "scratch_equiv": "Operators \u2014 \"+\"", "desc": "Group multiplication: i \u00b7 j \u2192 k. Closed in 168-element space. O(1).", "pearls": [], "note": "mulIdx(i,j) = PROD_TABLE[i*168+j]. The fundamental binary operation."}, "pointer_diff": {"label": "Pointer Diff", "color": "#2ecc71", "scratch_equiv": "Operators \u2014 \"-\"", "desc": "diffIdx(i,j) = j\u00b7i\u207b\u00b9. The group element mapping i\u2192j.", "pearls": [], "note": "Encodes a transition semantically: order, tier, spectral type all derivable from result."}, "commutator": {"label": "Commutator", "color": "#2ecc71", "scratch_equiv": "Operators \u2014 \"mod\"", "desc": "[i,j] = i\u00b7j\u00b7i\u207b\u00b9\u00b7j\u207b\u00b9. Measures non-commutativity. = identity iff i,j commute.", "pearls": [], "note": "If result = Pearl[76], then i and j commute (zero structural tension)."}, "power": {"label": "Power", "color": "#2ecc71", "scratch_equiv": "Operators \u2014 \"\u00d7\"", "desc": "i\u207f = multiply i by itself n times. Returns Pearl[76] when n = el_order(i).", "pearls": [], "note": "Period is always 1,2,3,4, or 7 (the only element orders in GL(3,2))."}, "char_poly": {"label": "Char Poly", "color": "#2ecc71", "scratch_equiv": "Operators \u2014 boolean", "desc": "Characteristic polynomial of a transformation D. Returns spectral type.", "pearls": [], "note": "charPoly(D) = [tr(D), minor(D), 1] over F\u2082. 4 possible results."}, "seam_cost": {"label": "Seam Cost", "color": "#00b4d8", "scratch_equiv": "Sensing \u2014 \"distance to\"", "desc": "seamFromTo(i,j): number of unsafe steps from i to j. 0=resonant, max\u22486.", "pearls": [], "note": "Asymmetric! seamFromTo(i,j) \u2260 seamFromTo(j,i) in general."}, "cayley_dist": {"label": "Cayley Dist", "color": "#00b4d8", "scratch_equiv": "Sensing \u2014 \"distance to edge\"", "desc": "Minimum transvection steps between two pearls. Symmetric. Max=6.", "pearls": [], "note": "cayDist(i,j). Distribution: 1008@d1, 4032@d2, 8568@d3, 10080@d4, 4032@d5, 336@d6."}, "is_resonant": {"label": "Is Resonant?", "color": "#00b4d8", "scratch_equiv": "Sensing \u2014 \"touching?\" boolean", "desc": "Boolean: seamFromTo(i,j) === 0. Zero-cost connection check.", "pearls": [], "note": "Pearl[76] (identity) is resonant to 116/167 other pearls."}, "nav_potential": {"label": "Nav Potential", "color": "#00b4d8", "scratch_equiv": "Sensing \u2014 \"timer\"", "desc": "Navigation potential of a pearl. Range: 1.365 [P76] to 3.0. Measures reachability.", "pearls": [], "note": "Lower = more central. Pearl[76] has lowest (1.365), Pearl[141] highest (3.0)."}, "res_degree": {"label": "Res Degree", "color": "#00b4d8", "scratch_equiv": "Sensing \u2014 \"loudness\"", "desc": "Count of zero-seam outgoing edges. Pearl[76]=116 (max). Pearl[131]=0 (min).", "pearls": [], "note": "RES_DEG[i]. Measures how \"connected\" this pearl is as a source."}, "dither_sweep": {"label": "Dither Sweep", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"repeat 10\"", "desc": "Iterate pearls at depth d: stride=(3^d+1)/2 mod 168. Period 12.", "pearls": [], "note": "dithSweep(d) visits all 168 pearls in 168 steps with stride stride(d)."}, "for_frob_orbit": {"label": "For Frob Orbit", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"repeat 3\"", "desc": "Iterate the 3 pearls in the Frobenius orbit of the input.", "pearls": [], "note": "Period exactly 3. Guaranteed to return to start after 3 applications."}, "if_resonant": {"label": "If Resonant", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"if <> then\"", "desc": "Execute block only if seamFromTo(current, target) = 0.", "pearls": [], "note": "The fundamental conditional: execute iff connection is free."}, "until_identity": {"label": "Until Identity", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"repeat until <>\"", "desc": "Repeat multiplication until result = Pearl[76] (identity). Terminates in \u22647 steps.", "pearls": [], "note": "Guaranteed to terminate: max element order = 7."}, "revolution": {"label": "Revolution", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"forever\"", "desc": "Execute one full 12-depth dither cycle. Visits all 168 pearls.", "pearls": [], "note": "One revolution = dither depths 1..12. Seam integral = 2636 per revolution."}, "wait_zero_seam": {"label": "Wait Resonant", "color": "#ff8c00", "scratch_equiv": "Control \u2014 \"wait until <>\"", "desc": "Pause composition until a zero-seam path exists to the target.", "pearls": [], "note": "Uses triangle routing: finds mediator if direct path is costly."}, "on_seam_break": {"label": "On Seam Break", "color": "#ffcc00", "scratch_equiv": "Events \u2014 \"when I receive\"", "desc": "Trigger when seam cost exceeds threshold. Signals unsafe transition.", "pearls": [], "note": "The BC equivalent of an exception handler."}, "on_enter_clique": {"label": "On Enter Clique", "color": "#ffcc00", "scratch_equiv": "Events \u2014 \"when backdrop switches\"", "desc": "Trigger when current pearl joins the MAX_RES_CLIQUE (7 resonant pearls).", "pearls": [12, 65, 69, 78, 127, 131, 151], "note": "MAX_RES_CLIQUE: [12,65,69,78,127,131,151]. The safest composition zone."}, "on_identity": {"label": "On Identity", "color": "#ffcc00", "scratch_equiv": "Events \u2014 \"when green flag clicked\" (reset)", "desc": "Trigger when composition result = Pearl[76] (identity). Cycle complete.", "pearls": [76], "note": "The group returns to the identity after every complete cycle."}, "on_fano_enter": {"label": "On Fano Enter", "color": "#ffcc00", "scratch_equiv": "Events \u2014 \"when key pressed\"", "desc": "Trigger when a Fano-tier pearl (order 7) is composed.", "pearls": [91, 73, 81, 145, 40, 120], "note": "48 Fano-tier pearls. Highest structural complexity in the group."}, "broadcast": {"label": "Broadcast", "color": "#f9a8d4", "scratch_equiv": "Events \u2014 \"broadcast message\"", "desc": "Send a signal along zero-seam edges from the current pearl.", "pearls": [], "note": "Routes only along seam=0 edges. Maximum reach = RES_DEG[i] pearls."}, "relay": {"label": "Relay", "color": "#f9a8d4", "scratch_equiv": "Events \u2014 \"broadcast and wait\"", "desc": "Route signal src\u2192mediator\u2192dst via zero-seam mediator pearl.", "pearls": [], "note": "Triangle routing: find m where seamFromTo(src,m)=0 AND seamFromTo(m,dst)=0."}, "res_clique_route": {"label": "Clique Route", "color": "#f9a8d4", "scratch_equiv": "Looks \u2014 \"show\" (make visible)", "desc": "Route any signal through MAX_RES_CLIQUE for zero-cost relay.", "pearls": [12, 65, 69, 78, 127, 131, 151], "note": "7 mutually zero-seam-outgoing pearls. The structural fast-path."}, "push_state": {"label": "Push State", "color": "#3a3f60", "scratch_equiv": "Variables \u2014 \"set x to\"", "desc": "Save current pearl to named slot. Can recall later.", "pearls": [], "note": "Names are user-defined labels for pearl indices."}, "result_stack": {"label": "Result Stack", "color": "#3a3f60", "scratch_equiv": "Variables \u2014 \"change x by\"", "desc": "Running product: multiply each new pearl into the accumulated result.", "pearls": [], "note": "Composition is non-commutative \u2014 order matters."}, "abs_level": {"label": "Abs Level", "color": "#3a3f60", "scratch_equiv": "Variables \u2014 \"timer\" (running count)", "desc": "Absolute trit-ladder level: revolution\u00d712 + depth. Unbounded.", "pearls": [], "note": "At level L: trit address has L digits, resolving to 168/3^min(L,5) pearls per cell."}, "hotspot_block": {"label": "Hotspot", "color": "#ff3366", "scratch_equiv": "My Blocks \u2014 \"define\"", "desc": "Pearl[76]: the identity. Anchor of the resonance network. 116 zero-seam outgoing.", "pearls": [76], "preset": true, "note": "The most connected node in the group. Useful as a routing hub."}, "chiral_pair_block": {"label": "Chiral Pair", "color": "#ff3366", "scratch_equiv": "My Blocks \u2014 user-defined pair", "desc": "Any pearl and its chiral partner (T(2,0) conjugate). Symmetric split.", "pearls": [0, 18], "preset": true, "note": "84 chiral pairs. Pearl[0] and Pearl[18] are the anchor chiral pair."}, "frob_triple_block": {"label": "Frob Triple", "color": "#ff3366", "scratch_equiv": "My Blocks \u2014 \"my block\" (loop of 3)", "desc": "A Frobenius orbit: 3 pearls cycling under x\u2192x\u00b2. Period=3 exactly.", "pearls": [0, 10, 8], "preset": true, "note": "56 such triples partition the 168 pearls. Each orbit is algebraically closed."}, "sylow_block": {"label": "Sylow-2", "color": "#ff3366", "scratch_equiv": "My Blocks \u2014 \"my block\" (subgroup)", "desc": "The 8-element upper triangular unipotent subgroup U\u2083(F\u2082). All order-2 elements.", "pearls": [76, 0, 4, 18, 22, 35, 144, 77], "preset": true, "note": "The unique Sylow-2 subgroup (up to conjugacy). Maximally composed of hot/anchor tier."}, "fano_cycle_block": {"label": "Fano Cycle", "color": "#9b59f5", "scratch_equiv": "My Blocks \u2014 \"my block\" (period 7)", "desc": "Compose the same Fano-tier pearl 7 times to return to identity.", "pearls": [91], "preset": true, "note": "Any order-7 element generates a 7-element cyclic subgroup (Sylow-7)."}, "seam_close_mediator": {"label": "Seam Closure", "color": "#38d98a", "scratch_equiv": "Operators \u2014 mediator insert", "desc": "Given edge (A\u2192B) with seam>0, inserts relay M where seam(A,M)=0 and seam(M,B)=0. 38 provable closure cases from hub.", "pearls": [], "note": "Triangle routing: find M where seamFromTo(A,M)=0 AND seamFromTo(M,B)=0."}, "tier_flow": {"label": "Tier Flow", "color": "#38d98a", "scratch_equiv": "Motion \u2014 tier gradient", "desc": "Route from hot-tier source toward warm/cold targets via zero-seam connections. 100 verified hot\u2192warm zero-seam transitions.", "pearls": [], "note": "Tier gradient: hot \u2192 warm \u2192 cold follows nav_potential. 100 zero-seam hot-to-warm transitions."}, "circle_gradient": {"label": "Circle Gradient 72\u219696", "color": "#38d98a", "scratch_equiv": "Sensing \u2014 chiral asymmetry", "desc": "72-pearl circle (pc=0, hub here) and 96-pearl circle (pc=1). Transition 96\u219272 is free (seam=0). Reverse costs seam=2. 72-circle is the structural attractor.", "pearls": [76, 11, 1], "note": "pc=PEARL_DATA[i][8]. Hub P[76] is pc=0. P[1](pc=1)\u2192P[11](pc=0)=seam 0. Reverse costs 2."}, "involution_flip": {"label": "Involution Flip", "color": "#38d98a", "scratch_equiv": "Transform \u2014 self-inverse", "desc": "Apply order-2 element: apply twice returns exactly to start. 22 involutions; 6 reachable at seam=0 from hub. GL(3,2) analog of a Pauli-X gate.", "pearls": [77, 78, 79, 80, 88, 90], "note": "mul(g,g)=identity for all 22 order-2 elements."}, "mrc_activate": {"label": "MRC Activate", "color": "#38d98a", "scratch_equiv": "Transmit \u2014 leaderless consensus", "desc": "Any of the 7 MAX_RES_CLIQUE pearls fires zero-seam to all 6 partners simultaneously. No leader needed.", "pearls": [12, 65, 69, 78, 127, 131, 151], "note": "All C(7,k) subsets k\u22653 remain fully connected. P[78] res_deg=57 (clique max)."}, "on_resonant": {"label": "\u26a1 On Resonant", "color": "#ffd020", "scratch_equiv": "Events \u2014 parallel zero-seam fire", "desc": "Activates ALL connected sub-graphs simultaneously when monitored edge reaches seam=0. True parallel activation \u2014 no sequential order.", "pearls": [], "note": "Condition: seamFromTo(src,dst)===0. All downstream blocks fire in one parallel pass."}, "on_order_cycle": {"label": "\u26a1 On Order Cycle", "color": "#ffd020", "scratch_equiv": "Events \u2014 algebra-grounded clock", "desc": "Fires every k applications of connected element where k=EL_ORDER[g]. Order-2=2-tick, Order-7=7-tick. No external timer.", "pearls": [], "note": "EL_ORDER: 22\u00d7ord-2, 56\u00d7ord-3, 42\u00d7ord-4, 48\u00d7ord-7. Period guaranteed by Lagrange."}, "on_frob_page": {"label": "\u26a1 On Frob Page", "color": "#ffd020", "scratch_equiv": "Events \u2014 Frobenius page match", "desc": "Fires when current pearl matches specified Frobenius page [t\u2080,t\u2081,t\u2082]. Hub=[1,1,0], Sink=[1,2,2]. Detects page-crossing.", "pearls": [], "note": "frobClass: s=1\u21920, s\u2208{2,4,6}\u21921, s\u2208{3,5,7}\u21922. 27 possible pages."}, "golden_spiral_block": {"label": "Golden Spiral", "color": "#ffcc00", "scratch_equiv": "My Blocks \u2014 period-4 rotation", "desc": "Order-4 cycle: [76\u219282\u219288\u219294\u219276]. Seams 0,2,0,2. Parallel spiral [89\u219278\u219291\u219276] passes through MRC hub P[78]. Two interlocked spirals.", "pearls": [76, 82, 88, 94], "preset": true, "note": "P[78] is simultaneously MRC member and midpoint of a golden spiral \u2014 algebraically forced."}, "fano_clock_block": {"label": "Fano Clock (7-step)", "color": "#9b59f5", "scratch_equiv": "My Blocks \u2014 7-period orbit", "desc": "P[6] applied 7 times: [76,6,137,45,58,99,166,76]. Seams: 0,2,3,2,3,3,3 total=16. 7-tick clock starting at seam=0 from hub.", "pearls": [76, 6, 137, 45, 58, 99, 166], "preset": true, "note": "Cycle crosses both pc-circles: pc values along chain=[0,1,1,1,0,0,1]. Chirally mixed."}, "order_clock_block": {"label": "Order Clock", "color": "#4af4b0", "scratch_equiv": "My Blocks \u2014 4 algebraic clocks", "desc": "Hub + one of each order: P[77](ord-2), P[1](ord-3), P[11](ord-4), P[6](ord-7). All seam=0 from hub. The 4 natural tick rates of GL(3,2).", "pearls": [76, 77, 1, 11, 6], "preset": true, "note": "No order-5 or order-6 exists in GL(3,2). The 4 non-trivial orders are all reachable at zero seam cost from hub."},
+const BLOCKS = {
+"identity":{"label":"Identity","color":"#4af4b0","scratch_equiv":"Variables — reporter blocks","desc":"The identity element. Neutral composition. No transformation.","pearls":[76],"note":"Pearl[76] is the only fixed point under group conjugation. Composing with it changes nothing."},
+"anchor":{"label":"Anchor","color":"#ff6b35","scratch_equiv":"Events — \"when green flag clicked\"","desc":"The structural origin. All seam costs measured from here.","pearls":[0],"note":"Pearl[0] is the seam origin. NAV_POT[0] = 1.3653, lowest in the space."},
+"read_tier":{"label":"Read Tier","color":"#4af4b0","scratch_equiv":"Sensing — reporter: \"x position\"","desc":"Reports the tier of a pearl: anchor/hot/warm/cold/fano.","pearls":[],"note":"Returns one of 5 values derived from element order."},
+"read_spec":{"label":"Read Spec","color":"#4af4b0","scratch_equiv":"Sensing — reporter: \"costume name\"","desc":"Reports spectral class: split/confined/gf8a/gf8b.","pearls":[],"note":"charPoly(diffFromAnchor) → 4-type classifier."},
+"step_T01":{"label":"Step T(0,1)","color":"#0096ff","scratch_equiv":"Motion — \"move 10 steps\"","desc":"Apply transvection T(0,1): row[0] ^= row[1]. One hop.","pearls":[],"tv":[0,1],"note":"Elementary group generator. Hot-tier cost if row[0] of fragility map ≠ 0."},
+"step_T10":{"label":"Step T(1,0)","color":"#0096ff","scratch_equiv":"Motion — \"move -10 steps\" (reverse)","desc":"Apply transvection T(1,0): row[1] ^= row[0]. One hop.","pearls":[],"tv":[1,0]},
+"step_T02":{"label":"Step T(0,2)","color":"#0096ff","scratch_equiv":"Motion — \"turn 15 degrees\"","desc":"Apply transvection T(0,2): row[0] ^= row[2].","pearls":[],"tv":[0,2]},
+"step_T20":{"label":"Step T(2,0)","color":"#0096ff","scratch_equiv":"Motion — \"turn -15 degrees\"","desc":"Apply T(2,0). This is also the CHIRAL INVOLUTION. Maps Pearl[i]↔chiral_partner(i).","pearls":[100],"note":"Special: T(2,0) partitions 168 pearls into 2 chiral orbits of 84 each."},
+"step_T12":{"label":"Step T(1,2)","color":"#0096ff","scratch_equiv":"Motion — \"go to x: 0 y: 0\"","desc":"Apply T(1,2): row[1] ^= row[2].","pearls":[],"tv":[1,2]},
+"step_T21":{"label":"Step T(2,1)","color":"#0096ff","scratch_equiv":"Motion — \"glide to position\"","desc":"Apply T(2,1): row[2] ^= row[1].","pearls":[],"tv":[2,1]},
+"navigate":{"label":"Navigate","color":"#0096ff","scratch_equiv":"Motion — \"glide 1 secs to x: y:\"","desc":"Move from src to dst via shortest transvection path (≤6 steps).","pearls":[],"note":"Uses TV_TABLE. Reports seam cost along path. Key operation."},
+"frobenius":{"label":"Frobenius","color":"#9b59f5","scratch_equiv":"Looks — \"switch costume to\"","desc":"GF(8) Frobenius map x→x². Period 3. No fixed points among the 168.","pearls":[132],"note":"Frob³ = identity. Partitions 168 into 56 orbits of size 3."},
+"frob_orbit":{"label":"Frobenius Orbit","color":"#9b59f5","scratch_equiv":"Looks — \"next costume\"","desc":"Returns all 3 pearls in the Frobenius orbit of the input.","pearls":[],"note":"For Pearl[i]: {i, FROB_NEXT[i], FROB_NEXT[FROB_NEXT[i]]}."},
+"chiral_flip":{"label":"Chiral Flip","color":"#9b59f5","scratch_equiv":"Looks — \"set effect to\"","desc":"Apply chiral involution T(2,0). Flips between orbit-0 and orbit-1.","pearls":[100],"note":"Pearl[100] is the T(2,0) element. Self-inverse (order 2)."},
+"matrix_form":{"label":"Matrix Form","color":"#9b59f5","scratch_equiv":"Looks — \"show\"","desc":"Expand pearl triple to 3×3 F₂ matrix representation.","pearls":[],"note":"toMat([s0,s1,s2]) — the fundamental representation."},
+"inverse":{"label":"Inverse","color":"#9b59f5","scratch_equiv":"Looks — \"set size to\"","desc":"Compute group inverse. invIdx(i) in O(1).","pearls":[],"note":"INV_TABLE[i]. Every element has exactly one inverse."},
+"multiply":{"label":"Multiply","color":"#2ecc71","scratch_equiv":"Operators — \"+\"","desc":"Group multiplication: i · j → k. Closed in 168-element space. O(1).","pearls":[],"note":"mulIdx(i,j) = PROD_TABLE[i*168+j]. The fundamental binary operation."},
+"pointer_diff":{"label":"Pointer Diff","color":"#2ecc71","scratch_equiv":"Operators — \"-\"","desc":"diffIdx(i,j) = j·i⁻¹. The group element mapping i→j.","pearls":[],"note":"Encodes a transition semantically: order, tier, spectral type all derivable from result."},
+"commutator":{"label":"Commutator","color":"#2ecc71","scratch_equiv":"Operators — \"mod\"","desc":"[i,j] = i·j·i⁻¹·j⁻¹. Measures non-commutativity. = identity iff i,j commute.","pearls":[],"note":"If result = Pearl[76], then i and j commute (zero structural tension)."},
+"power":{"label":"Power","color":"#2ecc71","scratch_equiv":"Operators — \"×\"","desc":"iⁿ = multiply i by itself n times. Returns Pearl[76] when n = el_order(i).","pearls":[],"note":"Period is always 1,2,3,4, or 7 (the only element orders in GL(3,2))."},
+"char_poly":{"label":"Char Poly","color":"#2ecc71","scratch_equiv":"Operators — boolean","desc":"Characteristic polynomial of a transformation D. Returns spectral type.","pearls":[],"note":"charPoly(D) = [tr(D), minor(D), 1] over F₂. 4 possible results."},
+"seam_cost":{"label":"Seam Cost","color":"#00b4d8","scratch_equiv":"Sensing — \"distance to\"","desc":"seamFromTo(i,j): number of unsafe steps from i to j. 0=resonant, max≈6.","pearls":[],"note":"Asymmetric! seamFromTo(i,j) ≠ seamFromTo(j,i) in general."},
+"cayley_dist":{"label":"Cayley Dist","color":"#00b4d8","scratch_equiv":"Sensing — \"distance to edge\"","desc":"Minimum transvection steps between two pearls. Symmetric. Max=6.","pearls":[],"note":"cayDist(i,j). Distribution: 1008@d1, 4032@d2, 8568@d3, 10080@d4, 4032@d5, 336@d6."},
+"is_resonant":{"label":"Is Resonant?","color":"#00b4d8","scratch_equiv":"Sensing — \"touching?\" boolean","desc":"Boolean: seamFromTo(i,j) === 0. Zero-cost connection check.","pearls":[],"note":"Pearl[76] (identity) is resonant to 116/167 other pearls."},
+"nav_potential":{"label":"Nav Potential","color":"#00b4d8","scratch_equiv":"Sensing — \"timer\"","desc":"Navigation potential of a pearl. Range: 1.365 [P76] to 3.0. Measures reachability.","pearls":[],"note":"Lower = more central. Pearl[76] has lowest (1.365), Pearl[141] highest (3.0)."},
+"res_degree":{"label":"Res Degree","color":"#00b4d8","scratch_equiv":"Sensing — \"loudness\"","desc":"Count of zero-seam outgoing edges. Pearl[76]=116 (max). Pearl[131]=0 (min).","pearls":[],"note":"RES_DEG[i]. Measures how \"connected\" this pearl is as a source."},
+"dither_sweep":{"label":"Dither Sweep","color":"#ff8c00","scratch_equiv":"Control — \"repeat 10\"","desc":"Iterate pearls at depth d: stride=(3^d+1)/2 mod 168. Period 12.","pearls":[],"note":"dithSweep(d) visits all 168 pearls in 168 steps with stride stride(d)."},
+"for_frob_orbit":{"label":"For Frob Orbit","color":"#ff8c00","scratch_equiv":"Control — \"repeat 3\"","desc":"Iterate the 3 pearls in the Frobenius orbit of the input.","pearls":[],"note":"Period exactly 3. Guaranteed to return to start after 3 applications."},
+"if_resonant":{"label":"If Resonant","color":"#ff8c00","scratch_equiv":"Control — \"if <> then\"","desc":"Execute block only if seamFromTo(current, target) = 0.","pearls":[],"note":"The fundamental conditional: execute iff connection is free."},
+"until_identity":{"label":"Until Identity","color":"#ff8c00","scratch_equiv":"Control — \"repeat until <>\"","desc":"Repeat multiplication until result = Pearl[76] (identity). Terminates in ≤7 steps.","pearls":[],"note":"Guaranteed to terminate: max element order = 7."},
+"revolution":{"label":"Revolution","color":"#ff8c00","scratch_equiv":"Control — \"forever\"","desc":"Execute one full 12-depth dither cycle. Visits all 168 pearls.","pearls":[],"note":"One revolution = dither depths 1..12. Seam integral = 2636 per revolution."},
+"wait_zero_seam":{"label":"Wait Resonant","color":"#ff8c00","scratch_equiv":"Control — \"wait until <>\"","desc":"Pause composition until a zero-seam path exists to the target.","pearls":[],"note":"Uses triangle routing: finds mediator if direct path is costly."},
+"on_seam_break":{"label":"On Seam Break","color":"#ffcc00","scratch_equiv":"Events — \"when I receive\"","desc":"Trigger when seam cost exceeds threshold. Signals unsafe transition.","pearls":[],"note":"The BC equivalent of an exception handler."},
+"on_enter_clique":{"label":"On Enter Clique","color":"#ffcc00","scratch_equiv":"Events — \"when backdrop switches\"","desc":"Trigger when current pearl joins the MAX_RES_CLIQUE (7 resonant pearls).","pearls":[12,65,69,78,127,131,151],"note":"MAX_RES_CLIQUE: [12,65,69,78,127,131,151]. The safest composition zone."},
+"on_identity":{"label":"On Identity","color":"#ffcc00","scratch_equiv":"Events — \"when green flag clicked\" (reset)","desc":"Trigger when composition result = Pearl[76] (identity). Cycle complete.","pearls":[76],"note":"The group returns to the identity after every complete cycle."},
+"on_fano_enter":{"label":"On Fano Enter","color":"#ffcc00","scratch_equiv":"Events — \"when key pressed\"","desc":"Trigger when a Fano-tier pearl (order 7) is composed.","pearls":[91,73,81,145,40,120],"note":"48 Fano-tier pearls. Highest structural complexity in the group."},
+"broadcast":{"label":"Broadcast","color":"#f9a8d4","scratch_equiv":"Events — \"broadcast message\"","desc":"Send a signal along zero-seam edges from the current pearl.","pearls":[],"note":"Routes only along seam=0 edges. Maximum reach = RES_DEG[i] pearls."},
+"relay":{"label":"Relay","color":"#f9a8d4","scratch_equiv":"Events — \"broadcast and wait\"","desc":"Route signal src→mediator→dst via zero-seam mediator pearl.","pearls":[],"note":"Triangle routing: find m where seamFromTo(src,m)=0 AND seamFromTo(m,dst)=0."},
+"res_clique_route":{"label":"Clique Route","color":"#f9a8d4","scratch_equiv":"Looks — \"show\" (make visible)","desc":"Route any signal through MAX_RES_CLIQUE for zero-cost relay.","pearls":[12,65,69,78,127,131,151],"note":"7 mutually zero-seam-outgoing pearls. The structural fast-path."},
+"push_state":{"label":"Push State","color":"#3a3f60","scratch_equiv":"Variables — \"set x to\"","desc":"Save current pearl to named slot. Can recall later.","pearls":[],"note":"Names are user-defined labels for pearl indices."},
+"result_stack":{"label":"Result Stack","color":"#3a3f60","scratch_equiv":"Variables — \"change x by\"","desc":"Running product: multiply each new pearl into the accumulated result.","pearls":[],"note":"Composition is non-commutative — order matters."},
+"abs_level":{"label":"Abs Level","color":"#3a3f60","scratch_equiv":"Variables — \"timer\" (running count)","desc":"Absolute trit-ladder level: revolution×12 + depth. Unbounded.","pearls":[],"note":"At level L: trit address has L digits, resolving to 168/3^min(L,5) pearls per cell."},
+"hotspot_block":{"label":"Hotspot","color":"#ff3366","scratch_equiv":"My Blocks — \"define\"","desc":"Pearl[76]: the identity. Anchor of the resonance network. 116 zero-seam outgoing.","pearls":[76],"preset":true,"note":"The most connected node in the group. Useful as a routing hub."},
+"chiral_pair_block":{"label":"Chiral Pair","color":"#ff3366","scratch_equiv":"My Blocks — user-defined pair","desc":"Any pearl and its chiral partner (T(2,0) conjugate). Symmetric split.","pearls":[0,18],"preset":true,"note":"84 chiral pairs. Pearl[0] and Pearl[18] are the anchor chiral pair."},
+"frob_triple_block":{"label":"Frob Triple","color":"#ff3366","scratch_equiv":"My Blocks — \"my block\" (loop of 3)","desc":"A Frobenius orbit: 3 pearls cycling under x→x². Period=3 exactly.","pearls":[0,10,8],"preset":true,"note":"56 such triples partition the 168 pearls. Each orbit is algebraically closed."},
+"sylow_block":{"label":"Sylow-2","color":"#ff3366","scratch_equiv":"My Blocks — \"my block\" (subgroup)","desc":"The 8-element upper triangular unipotent subgroup U₃(F₂). All order-2 elements.","pearls":[76,0,4,18,22,35,144,77],"preset":true,"note":"The unique Sylow-2 subgroup (up to conjugacy). Maximally composed of hot/anchor tier."},
+"fano_cycle_block":{"label":"Fano Cycle","color":"#9b59f5","scratch_equiv":"My Blocks — \"my block\" (period 7)","desc":"Compose the same Fano-tier pearl 7 times to return to identity.","pearls":[91],"preset":true,"note":"Any order-7 element generates a 7-element cyclic subgroup (Sylow-7)."},
+"seam_close_mediator":{"label":"Seam Closure","color":"#38d98a","scratch_equiv":"Operators — mediator insert","desc":"Given edge (A→B) with seam>0, inserts relay M where seam(A,M)=0 and seam(M,B)=0. 38 provable closure cases from hub.","pearls":[],"note":"Triangle routing: find M where seamFromTo(A,M)=0 AND seamFromTo(M,B)=0."},
+"tier_flow":{"label":"Tier Flow","color":"#38d98a","scratch_equiv":"Motion — tier gradient","desc":"Route from hot-tier source toward warm/cold targets via zero-seam connections. 100 verified hot→warm zero-seam transitions.","pearls":[],"note":"Tier gradient: hot → warm → cold follows nav_potential. 100 zero-seam hot-to-warm transitions."},
+"circle_gradient":{"label":"Circle Gradient 72↖96","color":"#38d98a","scratch_equiv":"Sensing — chiral asymmetry","desc":"72-pearl circle (pc=0, hub here) and 96-pearl circle (pc=1). Transition 96→72 is free (seam=0). Reverse costs seam=2. 72-circle is the structural attractor.","pearls":[76,11,1],"note":"pc=PEARL_DATA[i][8]. Hub P[76] is pc=0. P[1](pc=1)→P[11](pc=0)=seam 0. Reverse costs 2."},
+"involution_flip":{"label":"Involution Flip","color":"#38d98a","scratch_equiv":"Transform — self-inverse","desc":"Apply order-2 element: apply twice returns exactly to start. 22 involutions; 6 reachable at seam=0 from hub. GL(3,2) analog of a Pauli-X gate.","pearls":[77,78,79,80,88,90],"note":"mul(g,g)=identity for all 22 order-2 elements."},
+"mrc_activate":{"label":"MRC Activate","color":"#38d98a","scratch_equiv":"Transmit — leaderless consensus","desc":"Any of the 7 MAX_RES_CLIQUE pearls fires zero-seam to all 6 partners simultaneously. No leader needed.","pearls":[12,65,69,78,127,131,151],"note":"All C(7,k) subsets k≥3 remain fully connected. P[78] res_deg=57 (clique max)."},
+"on_resonant":{"label":"⚡ On Resonant","color":"#ffd020","scratch_equiv":"Events — parallel zero-seam fire","desc":"Activates ALL connected sub-graphs simultaneously when monitored edge reaches seam=0. True parallel activation — no sequential order.","pearls":[],"note":"Condition: seamFromTo(src,dst)===0. All downstream blocks fire in one parallel pass."},
+"on_order_cycle":{"label":"⚡ On Order Cycle","color":"#ffd020","scratch_equiv":"Events — algebra-grounded clock","desc":"Fires every k applications of connected element where k=EL_ORDER[g]. Order-2=2-tick, Order-7=7-tick. No external timer.","pearls":[],"note":"EL_ORDER: 22×ord-2, 56×ord-3, 42×ord-4, 48×ord-7. Period guaranteed by Lagrange."},
+"on_frob_page":{"label":"⚡ On Frob Page","color":"#ffd020","scratch_equiv":"Events — Frobenius page match","desc":"Fires when current pearl matches specified Frobenius page [t₀,t₁,t₂]. Hub=[1,1,0], Sink=[1,2,2]. Detects page-crossing.","pearls":[],"note":"frobClass: s=1→0, s∈{2,4,6}→1, s∈{3,5,7}→2. 27 possible pages."},
+"golden_spiral_block":{"label":"Golden Spiral","color":"#ffcc00","scratch_equiv":"My Blocks — period-4 rotation","desc":"Order-4 cycle: [76→82→88→94→76]. Seams 0,2,0,2. Parallel spiral [89→78→91→76] passes through MRC hub P[78]. Two interlocked spirals.","pearls":[76,82,88,94],"preset":true,"note":"P[78] is simultaneously MRC member and midpoint of a golden spiral — algebraically forced."},
+"fano_clock_block":{"label":"Fano Clock (7-step)","color":"#9b59f5","scratch_equiv":"My Blocks — 7-period orbit","desc":"P[6] applied 7 times: [76,6,137,45,58,99,166,76]. Seams: 0,2,3,2,3,3,3 total=16. 7-tick clock starting at seam=0 from hub.","pearls":[76,6,137,45,58,99,166],"preset":true,"note":"Cycle crosses both pc-circles: pc values along chain=[0,1,1,1,0,0,1]. Chirally mixed."},
+"order_clock_block":{"label":"Order Clock","color":"#4af4b0","scratch_equiv":"My Blocks — 4 algebraic clocks","desc":"Hub + one of each order: P[77](ord-2), P[1](ord-3), P[11](ord-4), P[6](ord-7). All seam=0 from hub. The 4 natural tick rates of GL(3,2).","pearls":[76,77,1,11,6],"preset":true,"note":"No order-5 or order-6 exists in GL(3,2). The 4 non-trivial orders are all reachable at zero seam cost from hub."},
 "world_origin":{"label":"World Origin","color":"#00c4e0","scratch_equiv":"World — scene anchor","desc":"Algebraic origin of the 3D scene. P[76] = identity sits at Frobenius page (1,1,0) — center of the ternary cube. All 3D positions derived relative to this hub.","pearls":[76],"cat3d":"world","note":"pearlTo3D(76)=(0,0,-1). Hub of the world graph. 116 zero-seam channels from here."},
 "world_floor":{"label":"Floor Plane","color":"#00c4e0","scratch_equiv":"World — static ground","desc":"Static floor at Y=0 in Frobenius space (frobClass(s1)=0). 24 pearls live on this layer. Maps to split-spec pearls — the floor has reflection symmetry matching C2 class.","pearls":[76],"cat3d":"world","note":"Floor layer: all i where PEARL_DATA[i][1]=1. 24 floor pearls. frobClass(1)=0 → Y=0."},
 "world_sky":{"label":"Sky Dome","color":"#00c4e0","scratch_equiv":"World — far plane","desc":"Sky sphere at the navigation limit. P[107] is sink at frobClass page (2,2,2) — the ternary cube far corner. Maximum distance from identity.","pearls":[107],"cat3d":"world","note":"pos3d=(1,1,1). The farthest corner from hub. nav_pot=3.000."},
@@ -2185,8 +2243,7 @@ const BLOCKS = {"identity": {"label": "Identity", "color": "#4af4b0", "scratch_e
 "anim_jump":{"label":"Anim: Jump","color":"#ff8c27","scratch_equiv":"Animation — jump arc","desc":"C4 generator P[71]: jump arc traces 4 phases (launch, apex, fall, land). C4 spine spans full nav_pot range: 0.311→2.257→1.365→3.000.","pearls":[71],"cat3d":"animation","note":"Jump = C4 spine arc."},
 "anim_blend_tree":{"label":"Anim: Blend Tree","color":"#ff8c27","scratch_equiv":"Animation — blend tree","desc":"MRC hub P[78] res_deg=57: blend tree node with most cross-connections. 57 zero-seam animation transitions — the richest blend space in the group.","pearls":[78],"cat3d":"animation","note":"57 zero-seam transitions = 57 blend paths from this node."},
 "anim_state_machine":{"label":"Anim: State Machine","color":"#ff8c27","scratch_equiv":"Animation — state machine","desc":"C3 P[1]: 3-state machine using the Frobenius orbit. Three states cycle cleanly — Idle→Walk→Run→Idle. Order-3 guarantees algebraically closed 3-state cycle.","pearls":[1],"cat3d":"animation","note":"3-state FSM: C3 Frobenius orbit {1, FROB(1), FROB²(1)}."},
-"spatial_rule":{"label":"Spatial Rule","color":"#38d98a","scratch_equiv":"Spatial — pattern rewrite","desc":"CellPond-style spatial rewrite: a 3×3 'before' matrix pattern in GL(3,2) maps to a 3×3 'after' pattern. The transformation T = after·before⁻¹ is a GL(3,2) element encoding the spatial rule as a group action. Enables pattern-based compression: repeating spatial motifs fold into trit-ladder addresses and harmonic wave differentials.","pearls":[76],"cat":"spatial","note":"Spatial rule encodes as wave differential T=diff(before_pearl,after_pearl). Chiral pairs, Frobenius orbits, and dither sweeps give compression up to 346×."}
-,
+"spatial_rule":{"label":"Spatial Rule","color":"#38d98a","scratch_equiv":"Spatial — pattern rewrite","desc":"CellPond-style spatial rewrite: a 3×3 'before' matrix pattern in GL(3,2) maps to a 3×3 'after' pattern. The transformation T = after·before⁻¹ is a GL(3,2) element encoding the spatial rule as a group action. Enables pattern-based compression: repeating spatial motifs fold into trit-ladder addresses and harmonic wave differentials.","pearls":[76],"cat":"spatial","note":"Spatial rule encodes as wave differential T=diff(before_pearl,after_pearl). Chiral pairs, Frobenius orbits, and dither sweeps give compression up to 346×."},
 "logic_if_seam":{"label":"⎇ If Seam=0","color":"#ff8c27","scratch_equiv":"Control — if <> then","desc":"Execute downstream only if seam(src,dst)=0. The BC conditional: a path is taken only when it is algebraically free. Expensive paths are automatically skipped.","pearls":[],"cat":"logic","note":"BC if/else: seam=0 = true branch (free). seam>0 = false branch (cost). The singular boundary IS the condition."},
 "logic_if_nav_lt":{"label":"⎇ If Nav <","color":"#ff8c27","scratch_equiv":"Control — if <x> then else","desc":"Branch when nav_potential(pearl) < threshold. Low nav = close to hub = safe state. High nav = near sink = committed state. Threshold default 2.0 (warm/cold boundary).","pearls":[],"cat":"logic","note":"nav_potential range: 1.365 (hub P[76]) to 3.000 (sinks). Threshold 2.0 splits warm from cold pearls."},
 "logic_switch_spectral":{"label":"⎇ Switch Spectral","color":"#ff8c27","scratch_equiv":"Control — switch/case (4 arms)","desc":"4-way dispatch: split / confined / gf8a / gf8b. Routes computation to the correct field-depth handler. Equivalent to a type-safe switch statement where cases are algebraically disjoint.","pearls":[],"cat":"logic","note":"split=64 pearls (F2), confined=56 (F4), gf8a=24 (GF8), gf8b=24 (GF8). Cases partition all 168 pearls."},
@@ -2246,8 +2303,7 @@ const BLOCKS = {"identity": {"label": "Identity", "color": "#4af4b0", "scratch_e
 "fsm_event":{"label":"◉ FSM Event","color":"#38d98a","scratch_equiv":"Events — FSM trigger signal","desc":"Named event that triggers FSM transitions. Events are seam-free signals: they carry a pearl index (the cause) and a name. The algebraic event: a group element that acted on the current state.","pearls":[],"cat":"fsm","note":"Event carries: name, source_pearl, seam_cost, timestamp_phase. Timestamp = current dither phase (0-11). Events dispatched in seam-cost order: zero-seam events first."},
 "fsm_guard":{"label":"◉ FSM Guard","color":"#38d98a","scratch_equiv":"Control — FSM precondition","desc":"Precondition on a transition: spectral type check, nav_potential range, res_degree threshold, or arbitrary seam expression. Guard evaluates to bool at transition time. False = transition blocked.","pearls":[],"cat":"fsm","note":"Guards compose with AND/OR. Common guards: seam=0, nav<2.0, spectral=split, order=7, is_in_clique. Guard evaluation is O(1) for all built-in predicates (precomputed per pearl)."},
 "fsm_history":{"label":"◉ FSM History","color":"#38d98a","scratch_equiv":"Variables — state history log","desc":"Remember the last N visited FSM states (pearl path). On re-entry: optionally restore to last state in N rather than initial state. The algebraic history: a prefix of the Cayley graph path. Max N=6 (Cayley diameter).","pearls":[],"cat":"fsm","note":"History depth <=6 (Cayley diameter). Shallow history: restore to direct predecessor. Deep history: restore to deepest recorded ancestor. History = stack_path with timestamp_phase annotations."},
-"fsm_parallel":{"label":"◉ FSM Parallel","color":"#38d98a","scratch_equiv":"Control — parallel FSM regions","desc":"Run two FSM regions concurrently. Each region has its own current pearl. Synchronise via shared async_channel (zero-seam only). The algebraic parallel state: two independent walks on the Cayley graph.","pearls":[],"cat":"fsm","note":"Two regions = two async_task instances sharing a channel. Synchronisation: emit on channel when both reach a mutually zero-seam pearl pair. The consensus_protocol demo is a 7-node parallel FSM."}
-,
+"fsm_parallel":{"label":"◉ FSM Parallel","color":"#38d98a","scratch_equiv":"Control — parallel FSM regions","desc":"Run two FSM regions concurrently. Each region has its own current pearl. Synchronise via shared async_channel (zero-seam only). The algebraic parallel state: two independent walks on the Cayley graph.","pearls":[],"cat":"fsm","note":"Two regions = two async_task instances sharing a channel. Synchronisation: emit on channel when both reach a mutually zero-seam pearl pair. The consensus_protocol demo is a 7-node parallel FSM."},
 "rfs_site":{"label":"RFS Site","color":"#ff6b35","scratch_equiv":"Scene — Resonant Field Site","desc":"A Resonant Field Site: sphere whose hue=conjugacy class, brightness=nav_potential, halo=field amplitude. Ports: in=neighboring pearls (pointer_diff=gradient), param=field type (E/B/ψ/u/g), out=state after 20-trit rotation.","pearls":[],"note":"next_state = mul(state, U) + Σ seam(i,j)×neighbor. The discrete field-equation node.","cat":"rfs"},
 "rfs_clock":{"label":"RFS Clock","color":"#ff8c27","scratch_equiv":"Time Evolution — 20-trit tick","desc":"Emits one 20-trit lens rotation every tick. All connected RFS nodes advance one discrete time step. The iħ∂/∂t analog: FROB_NEXT applied globally.","pearls":[132],"note":"Pearl[132] is the canonical Frobenius generator. Clock period = 3 (Frob³=id) or 7 (C7 generator). Choose resolution.","cat":"rfs"},
 "rfs_probe":{"label":"RFS Probe","color":"#4af4b0","scratch_equiv":"Measurement — read field","desc":"Reads nav_potential, seam to neighbors, conjugacy class, tier, spectral type at one RFS site. Reports all 5 layers simultaneously.","pearls":[],"note":"Non-destructive read. seam(probe,site)=0 → resonant observation (ideal measurement). seam>0 → back-action.","cat":"rfs"},
@@ -2280,7 +2336,8 @@ const BLOCKS = {"identity": {"label": "Identity", "color": "#4af4b0", "scratch_e
 "sym_probability":{"label":"P Probability","color":"#6c7db8","scratch_equiv":"Symbols — high-nav archetype","desc":"Symbol archetype: probability, uncertainty, statistical sampling. Absorbs: P(·), ℙ, E[·], Var, σ, ρ, ∫p(x)dx. Emerges when nav_potential > ~1.5: deterministic group orbits become effectively probabilistic.","pearls":[],"note":"nav>1.5: trajectory is still exact algebraically, but exponentially sensitive to initial conditions → statistical emergence.","cat":"symbols"},
 "sym_threshold":{"label":"⊞ Threshold","color":"#ff3366","scratch_equiv":"Symbols — guardian-prime archetype","desc":"Symbol archetype: boundary constant, critical threshold. Absorbs: 137 (1/α), 54 (suture), 81 (3⁴), 142 (shimmer). Guardian prime pairs: just below a structural gap. These are pearls where seam transitions sharply.","pearls":[131,127],"note":"P[131]=res_deg 0 (max isolation). P[127]=MRC member. The 137/54/81/142 pattern = guardian primes at orbit boundaries.","cat":"symbols"},
 "sym_closure":{"label":"◎ Closure","color":"#38d98a","scratch_equiv":"Symbols — group-order archetype","desc":"Symbol archetype: full symmetry, UV completion, total closure. Absorbs: |G|=168, GL(3,2), PSL(2,7), UV fixed point, S-matrix unitarity. 168 = non-prime product of all element orders. The top-level harmonic.","pearls":[],"note":"168 = 8×21 = 7×24. Every orbit divides 168 (Lagrange). UV completion = returning to the 168-element closed group.","cat":"symbols"}
-};const CATS   = [["identity", "Identity", "#4af4b0", "I", "State & Values", ["identity", "anchor", "read_tier", "read_spec"]], ["motion", "Motion", "#3b9eff", "\u2192", "Move Through Group", ["step_T01", "step_T10", "step_T02", "step_T20", "step_T12", "step_T21", "navigate"]], ["transform", "Transform", "#a084e8", "\u27f3", "Reshape & Invert", ["frobenius", "frob_orbit", "chiral_flip", "matrix_form", "inverse"]], ["compose", "Compose", "#38d98a", "\u00d7", "Algebraic Operations", ["multiply", "pointer_diff", "commutator", "power", "char_poly"]], ["sense", "Sense", "#00c4e0", "\u25c9", "Read Properties", ["seam_cost", "cayley_dist", "is_resonant", "nav_potential", "res_degree"]], ["control", "Control", "#ff8c27", "\u22ef", "Flow & Iteration", ["dither_sweep", "for_frob_orbit", "if_resonant", "until_identity", "revolution", "wait_zero_seam"]], ["events", "Events", "#ffd020", "\u26a1", "Structural Triggers", ["on_seam_break", "on_enter_clique", "on_identity", "on_fano_enter"]], ["transmit", "Transmit", "#f472b6", "\u21dd", "Route & Broadcast", ["broadcast", "relay", "res_clique_route"]], ["memory", "Memory", "#6c7db8", "\u25eb", "Stack & Store", ["push_state", "result_stack", "abs_level"]], ["myblocks", "My Blocks", "#ff4466", "\u2605", "Preset Compositions", ["hotspot_block", "chiral_pair_block", "frob_triple_block", "sylow_block", "fano_cycle_block"]], ["spatial", "Spatial", "#38d98a", "◉", "Pattern Transforms", ["seam_close_mediator", "tier_flow", "circle_gradient", "involution_flip", "mrc_activate", "spatial_rule"]], ["triggers", "Triggers", "#ffd020", "\u26a1", "Higher-Layer Activation", ["on_resonant", "on_order_cycle", "on_frob_page"]], ["spirals", "Spirals", "#ffcc00", "\u27f3", "Algebraic Cycles", ["golden_spiral_block", "fano_clock_block", "order_clock_block"]],["world","World","#00c4e0","⬡","3D Scene World",["world_origin","world_floor","world_sky","world_spawn","world_gravity","world_fog"]],["objects","Objects","#3b9eff","◎","Scene Objects",["obj_empty","obj_static","obj_dynamic","obj_trigger","obj_prefab"]],["meshes","Meshes","#a084e8","⬡","Geometry",["mesh_plane","mesh_cube","mesh_sphere","mesh_cylinder","mesh_capsule","mesh_torus","mesh_terrain"]],["materials","Materials","#38d98a","◈","Surface & Shading",["mat_default","mat_unlit","mat_pbr","mat_metallic","mat_emissive","mat_glass","mat_toon"]],["physics3d","Physics","#ff6b35","⊕","Rigidbody & Colliders",["phys_static_body","phys_dynamic_body","phys_kinematic","phys_box_col","phys_sphere_col","phys_gravity","phys_force_field","phys_spring"]],["camera3d","Camera","#9b59f5","⊙","Viewports",["cam_perspective","cam_orthographic","cam_orbit","cam_first_person"]],["lighting","Lighting","#ffd020","☀","Illumination",["light_sun","light_point","light_spot","light_area","light_probe"]],["audio3d","Audio","#f472b6","♫","Spatial Sound",["audio_source","audio_listener","audio_reverb"]],["lifecycle","Lifecycle","#4af4b0","⟳","Script Events",["lifecycle_start","lifecycle_update","lifecycle_fixed_update","lifecycle_awake","lifecycle_destroy","lifecycle_signal"]],["ui3d","UI","#00b4d8","▣","Interface",["ui_canvas","ui_button","ui_slider","ui_healthbar","ui_minimap"]],["vfx","VFX","#ff3366","✦","Particles & Effects",["vfx_emitter","vfx_burst","vfx_trail","vfx_explosion"]],["anim3d","Animation","#ff8c27","⇄","Motion & State",["anim_idle","anim_walk","anim_run","anim_jump","anim_blend_tree","anim_state_machine"]],
+};;
+const CATS   = [["identity", "Identity", "#4af4b0", "I", "State & Values", ["identity", "anchor", "read_tier", "read_spec"]], ["motion", "Motion", "#3b9eff", "\u2192", "Move Through Group", ["step_T01", "step_T10", "step_T02", "step_T20", "step_T12", "step_T21", "navigate"]], ["transform", "Transform", "#a084e8", "\u27f3", "Reshape & Invert", ["frobenius", "frob_orbit", "chiral_flip", "matrix_form", "inverse"]], ["compose", "Compose", "#38d98a", "\u00d7", "Algebraic Operations", ["multiply", "pointer_diff", "commutator", "power", "char_poly"]], ["sense", "Sense", "#00c4e0", "\u25c9", "Read Properties", ["seam_cost", "cayley_dist", "is_resonant", "nav_potential", "res_degree"]], ["control", "Control", "#ff8c27", "\u22ef", "Flow & Iteration", ["dither_sweep", "for_frob_orbit", "if_resonant", "until_identity", "revolution", "wait_zero_seam"]], ["events", "Events", "#ffd020", "\u26a1", "Structural Triggers", ["on_seam_break", "on_enter_clique", "on_identity", "on_fano_enter"]], ["transmit", "Transmit", "#f472b6", "\u21dd", "Route & Broadcast", ["broadcast", "relay", "res_clique_route"]], ["memory", "Memory", "#6c7db8", "\u25eb", "Stack & Store", ["push_state", "result_stack", "abs_level"]], ["myblocks", "My Blocks", "#ff4466", "\u2605", "Preset Compositions", ["hotspot_block", "chiral_pair_block", "frob_triple_block", "sylow_block", "fano_cycle_block"]], ["spatial", "Spatial", "#38d98a", "◉", "Pattern Transforms", ["seam_close_mediator", "tier_flow", "circle_gradient", "involution_flip", "mrc_activate", "spatial_rule"]], ["triggers", "Triggers", "#ffd020", "\u26a1", "Higher-Layer Activation", ["on_resonant", "on_order_cycle", "on_frob_page"]], ["spirals", "Spirals", "#ffcc00", "\u27f3", "Algebraic Cycles", ["golden_spiral_block", "fano_clock_block", "order_clock_block"]],["world","World","#00c4e0","⬡","3D Scene World",["world_origin","world_floor","world_sky","world_spawn","world_gravity","world_fog"]],["objects","Objects","#3b9eff","◎","Scene Objects",["obj_empty","obj_static","obj_dynamic","obj_trigger","obj_prefab"]],["meshes","Meshes","#a084e8","⬡","Geometry",["mesh_plane","mesh_cube","mesh_sphere","mesh_cylinder","mesh_capsule","mesh_torus","mesh_terrain"]],["materials","Materials","#38d98a","◈","Surface & Shading",["mat_default","mat_unlit","mat_pbr","mat_metallic","mat_emissive","mat_glass","mat_toon"]],["physics3d","Physics","#ff6b35","⊕","Rigidbody & Colliders",["phys_static_body","phys_dynamic_body","phys_kinematic","phys_box_col","phys_sphere_col","phys_gravity","phys_force_field","phys_spring"]],["camera3d","Camera","#9b59f5","⊙","Viewports",["cam_perspective","cam_orthographic","cam_orbit","cam_first_person"]],["lighting","Lighting","#ffd020","☀","Illumination",["light_sun","light_point","light_spot","light_area","light_probe"]],["audio3d","Audio","#f472b6","♫","Spatial Sound",["audio_source","audio_listener","audio_reverb"]],["lifecycle","Lifecycle","#4af4b0","⟳","Script Events",["lifecycle_start","lifecycle_update","lifecycle_fixed_update","lifecycle_awake","lifecycle_destroy","lifecycle_signal"]],["ui3d","UI","#00b4d8","▣","Interface",["ui_canvas","ui_button","ui_slider","ui_healthbar","ui_minimap"]],["vfx","VFX","#ff3366","✦","Particles & Effects",["vfx_emitter","vfx_burst","vfx_trail","vfx_explosion"]],["anim3d","Animation","#ff8c27","⇄","Motion & State",["anim_idle","anim_walk","anim_run","anim_jump","anim_blend_tree","anim_state_machine"]],
 ["logic","Logic","#ff8c27","⎇","Control Flow & Branching",["logic_if_seam","logic_if_nav_lt","logic_switch_spectral","logic_switch_order","logic_loop_orbit","logic_loop_dither","logic_break_sink","logic_return_hub"]],
 ["data","Data","#6c7db8","□","Variables & Structures",["data_var_pearl","data_const_pearl","data_array_orbit","data_stack_path","data_queue_bfs","data_ring_dither","data_set_clique","data_dict_nav"]],
 ["fn","Functions","#a084e8","λ","Abstraction & Composition",["fn_define","fn_call","fn_compose","fn_curry","fn_memoize","fn_pipe","fn_fixed_point"]],
@@ -6081,17 +6138,29 @@ function orbitCameraBy(dx, dy){
   camera3d.lookAt(0,0,0);
 }
 
+// BC-exact pulse engine — no trig. Uses Frobenius orbit phase tables.
+// Hub P[76] frob orbit: {76→132→40→76} period=3
+// Sink P[141] frob orbit: {141→29→87→141} period=3
+// Intensities are NAV_POT-derived: hub=central(low nav)→bright, sink=deep(high nav)→aggressive
+// Phase advances every N frames: hub=18 frames/phase (0.9s/cycle @60fps), sink=11 frames/phase (0.55s)
+// Two independent frob clocks offset by 1 phase = natural structural beat.
+const _PULSE_HUB_I  = [0.60, 0.30, 0.05]; // 3-phase frob table: bright→mid→dim
+const _PULSE_SINK_I = [0.40, 0.15, 0.00]; // sink table: aggressive→quiet→off
+let _pulseFrameCount = 0;
 function renderLoop3D(){
   if(!renderer3d)return;
   raf3d=requestAnimationFrame(renderLoop3D);
-  // Pulse hub + sinks
-  const t=performance.now()*0.001;
+  _pulseFrameCount++;
+  // Hub: 18-frame steps through frob-3 orbit of P[76] → period 54 frames ≈ 0.9s@60fps
+  const hubPhase  = Math.floor(_pulseFrameCount / 18) % 3;
+  // Sink: 11-frame steps, offset by 1 frob phase → period 33 frames ≈ 0.55s@60fps
+  const sinkPhase = (Math.floor(_pulseFrameCount / 11) + 1) % 3;
   if(scene3d){
     scene3d.children.forEach(obj=>{
       if(obj.material&&obj.material.emissiveIntensity!==undefined&&obj.material.emissive){
         const c=obj.material.emissive.getHex();
-        if(c===0x4af4b0) obj.material.emissiveIntensity=0.3+0.3*Math.sin(t*1.8);
-        if(c===0xff3366) obj.material.emissiveIntensity=0.2+0.2*Math.sin(t*2.4+1);
+        if(c===0x4af4b0) obj.material.emissiveIntensity=_PULSE_HUB_I[hubPhase];
+        if(c===0xff3366) obj.material.emissiveIntensity=_PULSE_SINK_I[sinkPhase];
       }
     });
   }
@@ -6434,7 +6503,7 @@ const PHYS_LAWS = {
       this._state = { psi: newPsi, H, tick: (this._state.tick||0)+1 };
       return { psi: newPsi, H, normSeam, energyNav: energyNav.toFixed(3),
                isStationary, isBound, psiClass,
-               spec: SPEC_N[PEARL_DATA[newPsi][2]], tier: TIER_N[PEARL_DATA[newPsi][6]],
+               spec: SPEC_N[PEARL_DATA[newPsi][4]], tier: TIER_N[PEARL_DATA[newPsi][3]],
                tick: this._state.tick };
     }
   },
@@ -6468,7 +6537,7 @@ const PHYS_LAWS = {
       this._state = { vel: newVel, tick: (this._state.tick||0)+1 };
       return { vel: newVel, pressure: pressure.toFixed(3), viscosity: viscosity.toFixed(3),
                vortexSeam, isTurbulent,
-               spec: SPEC_N[PEARL_DATA[newVel][2]], cls: CLASS_NAMES[newVel],
+               spec: SPEC_N[PEARL_DATA[newVel][4]], cls: CLASS_NAMES[newVel],
                tick: this._state.tick };
     }
   },
@@ -6658,91 +6727,240 @@ const PT_LAYOUT = [
   ['Th',10,4],['Pa',10,5],['U',10,6],['Np',10,7],['Pu',10,8],['Am',10,9],['Cm',10,10],['Bk',10,11],['Cf',10,12],['Es',10,13],['Fm',10,14],['Md',10,15],['No',10,16],['Lr',10,17],
 ];
 
+// ── BC Periodic Table overlay mode ─────────────────────────────────────────
+// overlay: 'spec' | 'res_deg' | 'nav' | 'order' | 'seam' | 'metallic' | 'ie' | 'ladder'
+let _ptOverlay = 'spec';
+
+// Hydrogen energy ladder: E_n = -13.6/n² eV → nav_pot rank correlation
+// Glueball mass ladder: ascending rung list (GeV)
+// BC: NAV_POT sorted = the BC "energy ladder" — compare shapes
+const _H_LEVELS_EV  = [13.6, 3.4, 1.51, 0.85, 0.54, 0.38, 0.28, 0.21, 0.17, 0.14];
+const _GLUEBALL_GEV = [1.474, 2.0, 2.395, 2.48, 2.597, 2.67, 2.98, 3.02, 3.26, 3.62];
+// Alkali ionization energies (eV): H Li Na K Rb Cs Fr
+const _ALKALI_IE_EV = [13.6, 5.39, 5.14, 4.34, 4.18, 3.89, 3.40];
+
 function renderPeriodicTable() {
   initT();
   const grid = document.getElementById('table-grid');
   if(!grid) return;
 
-  // Build cell map
+  // Build cell map — FIXED: use [4] for specIdx, [3] for elOrd (tier)
   const cells = {};
   PT_LAYOUT.forEach(([sym, period, group]) => {
     const Z = ELEMENT_SYMBOLS.indexOf(sym) + 1;
     const pearlIdx = (typeof ATOMIC_TO_PEARL !== 'undefined') ? ATOMIC_TO_PEARL[Z-1] : (Z % 168);
     if(!pearlIdx && pearlIdx !== 0) return;
-    const spec = SPEC_N[PEARL_DATA[pearlIdx][2]];
-    const tier = TIER_N[PEARL_DATA[pearlIdx][6]];
-    const nav = NAV_POT[pearlIdx];
-    const res = RES_DEG[pearlIdx];
+    const spec  = SPEC_N[PEARL_DATA[pearlIdx][4]];   // [4] = specIdx  (was wrong [2])
+    const tier  = TIER_N[PEARL_DATA[pearlIdx][3]];   // [3] = elOrd/tier (was wrong [6])
+    const nav   = NAV_POT[pearlIdx];
+    const res   = RES_DEG[pearlIdx];
+    const ord   = EL_ORDER[pearlIdx];
+    const sm    = seam(76, pearlIdx);                 // seam cost hub→element
     const specColor = {split:'#4af4b0',confined:'#ff6b6b',gf8a:'#7ecfff',gf8b:'#f9a8d4'}[spec] || '#5a6a80';
-    cells[`${period},${group}`] = { sym, Z, pearlIdx, spec, tier, nav, res, specColor };
+    cells[`${period},${group}`] = { sym, Z, pearlIdx, spec, tier, nav, res, ord, sm, specColor };
   });
 
-  // Render grid (periods 1-7 + f-block rows 9-10)
-  let html = `<div style="display:grid;grid-template-columns:repeat(18,1fr);gap:1px;min-width:460px">`;
+  // Overlay colour engine: maps each overlay mode to a hex color per cell
+  // All values derived purely from BC primitives — no approximation
+  function overlayColor(cell) {
+    const v = cell;
+    switch(_ptOverlay) {
+      case 'spec':    return v.specColor;
+      case 'res_deg': {
+        // res_deg range 0–116. Green=high (metallic), Red=low (nonmetallic)
+        const t = v.res/116;
+        const r = Math.round((1-t)*0xff), g = Math.round(t*0xa0 + 0x20), b = 0x50;
+        return '#'+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,'0')).join('');
+      }
+      case 'nav': {
+        // nav_pot 0.311–3.0. Purple=low(hub/noble), Orange=high(sink)
+        const t = (v.nav-0.311)/(3.0-0.311);
+        const r = Math.round(t*0xff), g = Math.round((1-t)*0x70+0x10), b = Math.round((1-t)*0xc0+0x20);
+        return '#'+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,'0')).join('');
+      }
+      case 'order': {
+        return {1:'#ffffff',2:'#4af4b0',3:'#3b9eff',4:'#a084e8',7:'#ff6b35'}[v.ord] || '#5a6a80';
+      }
+      case 'seam': {
+        // seam hub→element: 0=resonant(green), 1=light(yellow), 2+=red
+        return v.sm===0?'#4af4b0':v.sm===1?'#ffd020':v.sm===2?'#ff8c27':'#ff3366';
+      }
+      case 'metallic': {
+        // metallic = res_deg/116 × (1 - seam_cost/6)
+        const m = (v.res/116) * (1 - v.sm/6);
+        const r = Math.round((1-m)*0xaa), g = Math.round(m*0xcc+0x22), b = Math.round((1-m)*0x66+0x22);
+        return '#'+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,'0')).join('');
+      }
+      case 'ie': {
+        // ionization energy proxy = 1/nav_pot. High=blue, Low=red
+        const ie = 1/v.nav;
+        const t = (ie - 0.333)/(1/0.311 - 0.333);
+        const r = Math.round((1-t)*0xee+0x10), g = Math.round(0x40), b = Math.round(t*0xee+0x10);
+        return '#'+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,'0')).join('');
+      }
+      case 'ladder': {
+        // Hydrogen ladder overlay: compare nav_pot rank to H_n energy level spacing
+        // BC nav rank / 168 approximates n² ladder if BC is correct
+        // Color by closeness to nearest H-level: bright=close, dim=far
+        const navNorm = (v.nav-0.311)/(3.0-0.311);
+        // Closest H level: levels normalized to [0,1]
+        const hNorm = _H_LEVELS_EV.map(e=>1-e/13.6); // 0=ground, 1=ionized
+        const closest = Math.min(...hNorm.map(h=>Math.abs(navNorm-h)));
+        const match = Math.max(0, 1 - closest*4);
+        const r = Math.round(match*0xff), g = Math.round(match*0xd0), b = Math.round((1-match)*0x80+0x20);
+        return '#'+[r,g,b].map(x=>Math.min(255,x).toString(16).padStart(2,'0')).join('');
+      }
+      default: return v.specColor;
+    }
+  }
+
+  // Overlay bar HTML
+  const overlays = [
+    ['spec','Spectral'],['res_deg','Metallic'],['nav','Nav Pot'],
+    ['order','Ord'],['seam','Seam→Hub'],['metallic','Bond'],
+    ['ie','Ionise'],['ladder','H-Ladder']
+  ];
+  let html = `<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px">`;
+  overlays.forEach(([id,label])=>{
+    html+=`<button onclick="_ptOverlay='${id}';renderPeriodicTable();" style="font-size:6px;padding:2px 4px;background:${_ptOverlay===id?'#2a1060':'#0a0e18'};color:${_ptOverlay===id?'#a084e8':'#3a4060'};border:1px solid ${_ptOverlay===id?'#a084e8':'#1a2030'};cursor:pointer;border-radius:2px">${label}</button>`;
+  });
+  html += '</div>';
+
+  // Main grid — 19 columns: col 1 = row label, cols 2-19 = groups 1-18
+  html += `<div style="display:grid;grid-template-columns:14px repeat(18,1fr);gap:1px;min-width:460px">`;
   const renderPeriods = [1,2,3,4,5,6,7,null,9,10];
   renderPeriods.forEach(period => {
     if(period === null) {
-      // Spacer row
       html += `<div style="grid-column:1/-1;height:4px"></div>`;
       return;
     }
-    const rowLabel = period <= 7 ? period : (period===9?'Ln':'An');
-    // Add row label for main table
-    if(period <= 7) {
-      html += `<div style="grid-column:1;display:flex;align-items:center;justify-content:center;font-size:6px;color:#2a3040">${period}</div>`;
+    const rowLabel = period<=7 ? period : (period===9?'Ln':'An');
+    if(period<=7) {
+      html += `<div style="display:flex;align-items:center;justify-content:center;font-size:5px;color:#1a2030;font-weight:600">${rowLabel}</div>`;
     } else {
-      html += `<div style="grid-column:1/3;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;font-size:6px;color:#4a3060">${rowLabel}</div>`;
-      html += `<div style="grid-column:3"></div>`;
+      html += `<div style="grid-column:1/4;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;font-size:5px;color:#2a1060">${rowLabel}</div>`;
     }
-    for(let g = (period<=7?2:4); g <= 18; g++) {
+    // Groups 1-18 (FIXED: was starting at g=2, causing group-1 column to vanish)
+    const gStart = period<=7 ? 1 : 4;
+    for(let g = 1; g <= 18; g++) {
+      if(period>7 && g<4) continue; // f-block: skip cols 1-3 (already used by label)
       const key = `${period},${g}`;
       const cell = cells[key];
       if(!cell) {
-        if(period <= 7) html += `<div></div>`;
+        html += `<div></div>`;
         continue;
       }
-      const opacity = Math.max(0.3, 1 - (cell.nav - 0.3) / 3.0);
-      html += `<div class="pt-cell" data-z="${cell.Z}" data-pearl="${cell.pearlIdx}" 
-        style="background:${cell.specColor}${Math.round(opacity*15).toString(16).padStart(1,'0')};border:1px solid ${cell.specColor}30;
-        padding:2px 1px;cursor:pointer;text-align:center;transition:background 0.1s"
-        title="${cell.sym} Z=${cell.Z} P[${cell.pearlIdx}] ${cell.spec} ${cell.tier} nav=${cell.nav.toFixed(2)}">
-        <div style="font-size:5.5px;color:#3a4050">${cell.Z}</div>
-        <div style="font-size:7.5px;font-weight:700;color:${cell.specColor}">${cell.sym}</div>
-        <div style="font-size:5px;color:#3a4050">${cell.nav.toFixed(1)}</div>
+      const clr = overlayColor(cell);
+      // Brightness from nav_pot (lower = brighter = more central)
+      const bright = Math.max(20, Math.round(255*(1-(cell.nav-0.311)/3.0)));
+      const alpha = bright.toString(16).padStart(2,'0');
+      // Overlay hint strip: small bar at bottom showing res_deg (width ∝ res/116)
+      const rdW = Math.round(cell.res/116*100);
+      // Order badge color
+      const ordClr = {1:'#fff',2:'#4af4b0',3:'#3b9eff',4:'#a084e8',7:'#ff6b35'}[cell.ord]||'#888';
+      html += `<div class="pt-cell" data-z="${cell.Z}" data-pearl="${cell.pearlIdx}"
+        style="background:${clr}${alpha};border:1px solid ${clr}40;
+        padding:2px 1px 0;cursor:pointer;text-align:center;position:relative"
+        title="${cell.sym} Z=${cell.Z} P[${cell.pearlIdx}] spec=${cell.spec} tier=${cell.tier} nav=${cell.nav.toFixed(2)} res=${cell.res} ord=${cell.ord} seam→hub=${cell.sm}">
+        <div style="font-size:4.5px;color:#ffffff60;line-height:1">${cell.Z}</div>
+        <div style="font-size:7px;font-weight:700;color:${clr};line-height:1.2">${cell.sym}</div>
+        <div style="font-size:4px;color:${ordClr};line-height:1">${cell.ord}·${cell.sm}</div>
+        <div style="height:2px;background:${clr};width:${rdW}%;margin-top:1px;border-radius:1px;opacity:0.5"></div>
       </div>`;
     }
   });
   html += '</div>';
+
+  // Legend for current overlay
+  const legendText = {
+    spec:'Color=spectral block (s/p/d/f) · brightness=nav_pot centrality',
+    res_deg:'Green=high resonance degree (metallic/conductive) · Red=low (insulator/nonmetal)',
+    nav:'Purple=low nav (hub region, noble) · Orange=high nav (sink region, reactive)',
+    order:'White=ord1 · Green=ord2(s) · Blue=ord3(p/d) · Purple=ord4(transition) · Orange=ord7(fano/rare)',
+    seam:'Green=seam0 (resonant, noble) · Yellow=seam1 · Orange=seam2 · Red=seam3+(reactive)',
+    metallic:'BC metallic character = (res_deg/116)×(1−seam/6) · measures bond availability',
+    ie:'Blue=high ionization energy(1/nav_pot) · Red=low IE · proxy for electronegativity',
+    ladder:'Glow=nav_pot rank matches hydrogen 1/n² energy ladder rung · dim=off-rung'
+  }[_ptOverlay]||'';
+  html += `<div style="font-size:5.5px;color:#2a3040;margin-top:4px;line-height:1.5">${legendText}</div>`;
+
   grid.innerHTML = html;
 
-  // Inspector click
+  // Inspector click — FIXED: use [4] for specIdx, [3] for tier
   grid.querySelectorAll('.pt-cell').forEach(cell => {
     cell.addEventListener('click', () => {
       const Z = +cell.dataset.z, p = +cell.dataset.pearl;
-      const spec = SPEC_N[PEARL_DATA[p][2]], tier = TIER_N[PEARL_DATA[p][6]];
+      const spec = SPEC_N[PEARL_DATA[p][4]], tier = TIER_N[PEARL_DATA[p][3]];
       const chiral = CHIRAL_ORBIT[p], frob = FROB_NEXT[p];
+      const ord = EL_ORDER[p], res = RES_DEG[p], nav = NAV_POT[p];
+      const sm = seam(76,p), sm_r = seam(p,76);
       const props = (typeof elementProps === 'function') ? elementProps(Z) : null;
+
+      // BC structural analysis
+      const frobOrbit = [p, FROB_NEXT[p], FROB_NEXT[FROB_NEXT[p]]];
+      const chiralP = CHIRAL_PARTNER ? CHIRAL_PARTNER[p] : '?';
+
+      // Ladder correlation: find nearest H-level
+      const navNorm = (nav-0.311)/(3.0-0.311);
+      const hRungs = _H_LEVELS_EV.map((e,i)=>({n:i+1,e,norm:1-e/13.6}));
+      const nearestH = hRungs.reduce((best,r)=>Math.abs(navNorm-r.norm)<Math.abs(navNorm-best.norm)?r:best);
+      const hDelta = Math.abs(navNorm-nearestH.norm);
+
+      // Glueball correlation: glueball masses sorted, find closest by Z-rank
+      const glueRank = Math.floor(Z/118 * _GLUEBALL_GEV.length);
+      const glueRef = _GLUEBALL_GEV[Math.min(glueRank, _GLUEBALL_GEV.length-1)];
+
+      // Oxidation state analog: EL_ORDER - 1 = number of distinct non-trivial powers
+      // Seam cost from hub = bond formation cost (lower=easier)
+      // Seam cost TO hub = return path cost (higher=more stable/inert)
+      const is_noble   = (ord===1 || (res>20 && sm===0));
+      const is_alkali  = (res===1 && sm===0);
+      const is_trans   = spec==='gf8a';
+      const is_rare    = tier==='fano';
+      const char_class = is_noble?'Noble analog':is_alkali?'Alkali analog':is_trans?'Transition analog':is_rare?'Rare-earth analog':'Main-group';
+
       document.getElementById('table-inspector').innerHTML = `
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <div><span style="color:#4af4b0;font-size:10px;font-weight:700">${ELEMENT_SYMBOLS[Z-1]}</span>
-            <span style="color:#3a4050;font-size:7px"> Z=${Z}</span></div>
-          <div style="font-size:7px;color:#5a7060">P[${p}] · ${CLASS_NAMES[p]} · ${spec} · ${tier}</div>
+        <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap">
+          <span style="color:#4af4b0;font-size:13px;font-weight:700">${ELEMENT_SYMBOLS[Z-1]}</span>
+          <span style="color:#2a3040;font-size:7px">Z=${Z}</span>
+          <span style="color:#a084e8;font-size:6.5px">${char_class}</span>
         </div>
-        <div style="font-size:6.5px;color:#4a6050;margin-top:4px;line-height:1.8">
-          nav_pot: <span style="color:#ffd020">${NAV_POT[p].toFixed(4)}</span> ·
-          res_deg: <span style="color:#4af4b0">${RES_DEG[p]}</span> ·
-          order: <span style="color:#9b59f5">${EL_ORDER[p]}</span> ·
-          frob: P[${frob}] ·
-          chiral: orbit-${chiral}
-          ${props ? `<br>ionE: <span style="color:#ff6b35">${props.ionization_energy.toFixed(3)}</span> ·
-            EN: <span style="color:#ffd020">${props.electronegativity.toFixed(3)}</span> ·
-            r: <span style="color:#7ecfff">${props.atomic_radius.toFixed(3)}</span>
-            <br>block: <span style="color:#a084e8">${props.block}</span> ·
-            period: ${props.period} · seam→hub: <span style="color:#ff6b6b">${seam(p, 76)}</span>` : ''}
+        <div style="font-size:6.5px;color:#5a7080;margin-top:2px">P[${p}] · ${CLASS_NAMES[p]} · ${spec} · ${tier}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:5px;font-size:6px">
+          <div><span style="color:#3a4060">nav_pot</span> <span style="color:#ffd020">${nav.toFixed(4)}</span></div>
+          <div><span style="color:#3a4060">order</span> <span style="color:#9b59f5">${ord}</span></div>
+          <div><span style="color:#3a4060">res_deg→</span> <span style="color:#4af4b0">${res}</span></div>
+          <div><span style="color:#3a4060">seam hub→ / →hub</span> <span style="color:#ff6b6b">${sm} / ${sm_r}</span></div>
+          <div><span style="color:#3a4060">chiral orbit</span> <span style="color:#7ecfff">${chiral}</span></div>
+          <div><span style="color:#3a4060">chiral partner</span> <span style="color:#7ecfff">P[${chiralP}]</span></div>
+        </div>
+        <div style="margin-top:5px;font-size:6px;color:#3a4060;border-top:1px solid #1a2030;padding-top:4px">
+          <div style="color:#4af4b080;font-size:5px;letter-spacing:.08em;margin-bottom:2px">BC PROPERTIES</div>
+          ${props?`
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px">
+            <div>IE <span style="color:#ff6b35">${props.ionization_energy.toFixed(3)}</span></div>
+            <div>EN <span style="color:#ffd020">${props.electronegativity.toFixed(3)}</span></div>
+            <div>r <span style="color:#7ecfff">${props.atomic_radius.toFixed(3)}</span></div>
+            <div>block <span style="color:#a084e8">${props.block}</span></div>
+            <div>period <span style="color:#3b9eff">${props.period}</span></div>
+            <div>ox.# <span style="color:#9b59f5">${ord-1}</span></div>
+          </div>`:''}
+        </div>
+        <div style="margin-top:5px;font-size:6px;color:#3a4060;border-top:1px solid #1a2030;padding-top:4px">
+          <div style="color:#ffd02080;font-size:5px;letter-spacing:.08em;margin-bottom:2px">LADDER OVERLAY</div>
+          <div>Frob orbit: P[${frobOrbit[0]}]→P[${frobOrbit[1]}]→P[${frobOrbit[2]}]→P[${frobOrbit[0]}]</div>
+          <div>H-ladder: nearest n=${nearestH.n} (E=${nearestH.e}eV) · Δ=${hDelta.toFixed(3)} <span style="color:${hDelta<0.05?'#4af4b0':hDelta<0.15?'#ffd020':'#ff6b6b'}">${hDelta<0.05?'✓on-rung':hDelta<0.15?'near':'off'}</span></div>
+          <div>Glueball ref: <span style="color:#7ecfff">${glueRef.toFixed(3)} GeV</span> (rank ${glueRank+1})</div>
+          <div>Metallic char: <span style="color:#4af4b0">${((res/116)*(1-sm/6)).toFixed(3)}</span> · Bond avail: <span style="color:#3b9eff">${res}</span> zero-seam exits</div>
         </div>`;
-      // Highlight
-      grid.querySelectorAll('.pt-cell').forEach(c => c.style.outline = '');
-      cell.style.outline = '2px solid #4af4b0';
+      // Highlight frob orbit
+      grid.querySelectorAll('.pt-cell').forEach(c => {
+        const cp = +c.dataset.pearl;
+        if(frobOrbit.includes(cp)) c.style.outline='1px solid #ffd020';
+        else if(cp===chiralP) c.style.outline='1px solid #7ecfff';
+        else c.style.outline='';
+      });
+      cell.style.outline='2px solid #4af4b0';
     });
   });
 }
